@@ -29,8 +29,8 @@ export default function ChatSearch() {
   async function getUser() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUserEmail(session.user.email)
-      console.log(session.user.user_metadata.avatar_url)
-      setUserAvatar(session.user.user_metadata.avatar_url)
+      // console.log(session.user.user_metadata.avatar_url)
+      // setUserAvatar(session.user.user_metadata.avatar_url)
     })
   }
 
