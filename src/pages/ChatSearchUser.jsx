@@ -5,6 +5,8 @@ const supabase = createClient('https://biciwtpjavbbeqbxcslx.supabase.co', 'eyJhb
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
   MainContainer,
+  ConversationHeader,
+  Avatar,
   ChatContainer,
   MessageList,
   Message,
@@ -14,12 +16,23 @@ import {
 
 
 export default function ChatSearch() {
+  const [userEmail, setUserEmail] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
   const [messages, setMessages] = useState([])
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
+    getUser()
     getMessage()
   }, []);
+
+  async function getUser() {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session.user.email)
+      console.log(session.user.user_metadata.avatar_url)
+      setUserAvatar(session.user.user_metadata.avatar_url)
+    })
+  }
 
   async function getMessage() {
     const { data, error } = await supabase
@@ -108,6 +121,11 @@ export default function ChatSearch() {
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer>
         <ChatContainer>
+          <ConversationHeader>
+              <Avatar src="https://chatscope.io/storybook/react/assets/eliot-JNkqSAth.svg" />
+              {/* <Avatar src={userAvatar} /> */}
+              <ConversationHeader.Content userName={userEmail} />
+          </ConversationHeader>
           <MessageList
             typingIndicator={
               isTyping ? <TypingIndicator content="Waiting for reply..." /> : null
