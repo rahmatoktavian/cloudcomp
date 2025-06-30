@@ -123,6 +123,7 @@ export default function ChatSearch() {
         <ChatContainer>
           <ConversationHeader>
               <Avatar src="https://chatscope.io/storybook/react/assets/eliot-JNkqSAth.svg" />
+              
               {/* <Avatar src={userAvatar} /> */}
               <ConversationHeader.Content userName={userEmail} />
           </ConversationHeader>
